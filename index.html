@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FDA Inspection Risk Profile</title>
+    <meta
+      name="description"
+      content="A lightweight GitHub Pages app that predicts FDA inspection risk profiles using a trained LightGBM model."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">FDA Inspection Risk Profiling</p>
+          <h1>Estimate whether a case is likely NAI, VAI, or OAI.</h1>
+          <p class="lede">
+            This is a static GitHub Pages interface built around the first LightGBM model from the notebook.
+            It uses the exact fitted tree ensemble exported from the trained notebook model and returns a
+            probability profile for one case at a time.
+          </p>
+          <div class="hero-metrics" id="heroMetrics">
+            <div class="metric-card">
+              <span class="metric-label">Model</span>
+              <strong>LightGBM multiclass</strong>
+              <small>F1-optimized notebook model</small>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Inputs</span>
+              <strong>Minimal form</strong>
+              <small>Only the needed ex ante fields</small>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Output</span>
+              <strong>Probabilities</strong>
+              <small>NAI, VAI, and OAI risk profile</small>
+            </div>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>How it works</h2>
+          <ol>
+            <li>You enter the basic case details.</li>
+            <li>The app infers administration, region, and feature-engineered variables.</li>
+            <li>The fitted LightGBM trees score the case in the browser.</li>
+          </ol>
+          <p class="note">
+            If you do not know historical counts, leave them at zero. That gives a conservative default profile.
+          </p>
+        </aside>
+      </header>
+
+      <main>
+        <section class="section intro" id="about">
+          <div class="section-heading">
+            <p class="eyebrow">Model background</p>
+            <h2>Training data and feature engineering</h2>
+          </div>
+          <div class="info-grid">
+            <article class="info-card">
+              <h3>Dataset</h3>
+              <p>
+                The model was trained on the FDA inspection dataset used in the notebook. The target is the
+                inspection classification mapped into three classes: NAI, VAI, and OAI.
+              </p>
+            </article>
+            <article class="info-card">
+              <h3>Feature engineering</h3>
+              <p>
+                The notebook converts country and state into regions, maps product type frequencies, derives
+                presidential administration features, and adds facility history counts.
+              </p>
+            </article>
+            <article class="info-card">
+              <h3>Modeling approach</h3>
+              <p>
+                The page uses the notebook's first LightGBM model, the one optimized for macro F1, and keeps the
+                exact fitted tree ensemble for inference.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section form-section" id="profile">
+          <div class="section-heading">
+            <p class="eyebrow">Risk profile</p>
+            <h2>Enter the case details</h2>
+          </div>
+
+          <form id="riskForm" class="risk-form">
+            <div class="form-grid">
+              <label>
+                <span>State</span>
+                <select name="state" id="stateSelect" required></select>
+              </label>
+              <label>
+                <span>Zip code</span>
+                <input name="zip" id="zipInput" type="number" min="0" step="1" placeholder="Optional" />
+              </label>
+              <label>
+                <span>Country / Area</span>
+                <select name="countryArea" id="countrySelect" required></select>
+              </label>
+              <label>
+                <span>Fiscal year</span>
+                <input name="fiscalYear" id="fiscalYearInput" type="number" min="2009" max="2026" value="2024" required />
+              </label>
+              <label>
+                <span>Project area</span>
+                <select name="projectArea" id="projectAreaSelect" required></select>
+              </label>
+              <label>
+                <span>Product type</span>
+                <select name="productType" id="productTypeSelect" required></select>
+              </label>
+              <label>
+                <span>Past inspections</span>
+                <input name="pastInspections" id="pastInspectionsInput" type="number" min="0" step="1" value="0" />
+              </label>
+              <label>
+                <span>Past NAI</span>
+                <input name="pastNAI" id="pastNaiInput" type="number" min="0" step="1" value="0" />
+              </label>
+              <label>
+                <span>Past VAI</span>
+                <input name="pastVAI" id="pastVaiInput" type="number" min="0" step="1" value="0" />
+              </label>
+              <label>
+                <span>Past OAI</span>
+                <input name="pastOAI" id="pastOaiInput" type="number" min="0" step="1" value="0" />
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">Generate risk profile</button>
+              <button type="button" id="resetBtn" class="secondary-btn">Reset</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="section results-section" id="resultsSection" hidden>
+          <div class="section-heading">
+            <p class="eyebrow">Prediction</p>
+            <h2>Your case profile</h2>
+          </div>
+
+          <div class="results-grid">
+            <article class="result-card highlight">
+              <span class="metric-label">Most likely outcome</span>
+              <h3 id="topLabel">-</h3>
+              <p id="topDescription"></p>
+              <div class="result-badges" id="resultBadges"></div>
+            </article>
+
+            <article class="result-card">
+              <span class="metric-label">Probabilities</span>
+              <div class="probability-list" id="probabilityList"></div>
+            </article>
+          </div>
+
+          <div class="derived-panel" id="derivedPanel"></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
