@@ -16,10 +16,10 @@
       <header class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Are you worried about your FDA inspection risk?</p>
-          <h1>Estimate the likely outcome of an FDA inspection—ranging from no issues identified to actions requiring corrective measures.</h1>
+          <h1>Estimate the likely outcome of an FDA inspection</h1>
           <p class="lede">
-            This is a GitHub Pages interface built around a LightGBM model trained on official FDA inspection data from 2009 to 2026. 
-            Enter the case information, and the app will show you the predicted probabilities for each inspection classification.
+            This is a GitHub Pages interface built around a LightGBM model trained on official FDA inspection data from 2009 to 2026.
+            Enter the case information, and the app will show the predicted probabilities for each inspection classification alongside the notebook's evaluation matrix.
           </p>
           <div class="hero-metrics" id="heroMetrics">
             <div class="metric-card">
@@ -45,7 +45,7 @@
             <li>You enter the basic case details.</li>
             <li>The app infers administration, region, and feature-engineered variables.</li>
             <li>The fitted LightGBM trees score the case in the browser.</li>
-            <li>The app returns the predicted probabilities for each inspection classification.</li>
+            <li>The app returns the predicted probabilities for each inspection classification and the saved notebook confusion matrix.</li>
           </ol>
           <p class="note">
             If you do not know historical counts, leave them at zero. That gives a conservative default profile.
@@ -80,6 +80,50 @@
               <p>
                 The page uses the notebook's first LightGBM model, the one optimized for macro F1, and keeps the
                 exact fitted tree ensemble for inference.
+              </p>
+            </article>
+            <article class="info-card">
+              <h3>Outcome labels</h3>
+              <p>
+                NAI means No Action Indicated, VAI means Voluntary Action Indicated, and OAI means Official Action Indicated.
+                The matrix below shows how the notebook's saved evaluation image classified those outcomes.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section matrix-section" id="evaluation">
+          <div class="section-heading">
+            <p class="eyebrow">Notebook evaluation</p>
+            <h2>Confusion matrix from the notebook</h2>
+            <p class="lede matrix-lede">
+              Saved from the FDA Models Notebook evaluation figure. Rows are actual outcomes and columns are predicted outcomes.
+            </p>
+          </div>
+
+          <div class="matrix-layout">
+            <article class="matrix-card">
+              <div id="confusionMatrix" class="confusion-matrix" aria-label="Confusion matrix visualization"></div>
+            </article>
+
+            <article class="info-card matrix-explainer">
+              <h3>What the labels mean</h3>
+              <div class="definition-list">
+                <div>
+                  <strong>NAI</strong>
+                  <p>No Action Indicated</p>
+                </div>
+                <div>
+                  <strong>VAI</strong>
+                  <p>Voluntary Action Indicated</p>
+                </div>
+                <div>
+                  <strong>OAI</strong>
+                  <p>Official Action Indicated</p>
+                </div>
+              </div>
+              <p class="matrix-note">
+                The image stored in the repository corresponds to the notebook's evaluation heatmap and is shown here in the same style language as the rest of the interface.
               </p>
             </article>
           </div>
@@ -166,5 +210,9 @@
         </section>
       </main>
     </div>
+
+    <footer class="site-footer">
+      <p>All credits and copyright reserved to Juan Agustín Otero.</p>
+    </footer>
   </body>
 </html>

@@ -59,7 +59,8 @@ body::before {
 .hero-panel,
 .info-card,
 .result-card,
-.derived-panel {
+.derived-panel,
+.matrix-card {
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
@@ -193,7 +194,7 @@ body::before {
 
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 14px;
 }
 
@@ -282,6 +283,168 @@ button {
   gap: 14px;
 }
 
+.matrix-layout {
+  display: grid;
+  grid-template-columns: 1.35fr 0.75fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.matrix-card {
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at top left, rgba(118, 228, 194, 0.12), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(138, 180, 255, 0.12), transparent 28%),
+    var(--panel);
+}
+
+.matrix-lede {
+  max-width: 72ch;
+}
+
+.confusion-matrix {
+  display: grid;
+  gap: 12px;
+}
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 108px repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+
+.matrix-chip,
+.matrix-cell,
+.matrix-axis {
+  border-radius: 16px;
+  border: 1px solid var(--line);
+}
+
+.matrix-chip,
+.matrix-axis {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.matrix-chip {
+  padding: 14px 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.matrix-axis {
+  display: grid;
+  place-items: center;
+  padding: 14px 16px;
+  color: var(--muted);
+  text-align: center;
+  min-height: 64px;
+}
+
+.matrix-axis.header {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.matrix-axis.corner {
+  background: linear-gradient(135deg, rgba(118, 228, 194, 0.12), rgba(138, 180, 255, 0.1));
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.matrix-cell {
+  padding: 16px;
+  min-height: 94px;
+  display: grid;
+  align-content: space-between;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.matrix-cell:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+}
+
+.matrix-cell .count {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.matrix-cell .share {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.matrix-cell.diagonal {
+  border-color: rgba(118, 228, 194, 0.36);
+}
+
+.matrix-cell.off-diagonal {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.matrix-explainer {
+  padding: 22px;
+}
+
+.definition-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.definition-list div {
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.definition-list strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 4px;
+  font-size: 1rem;
+}
+
+.definition-list p,
+.matrix-note {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.matrix-note {
+  margin-top: 16px;
+}
+
+.matrix-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  margin-top: 14px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.matrix-summary strong {
+  color: var(--text);
+}
+
+.matrix-summary p {
+  margin: 0;
+  color: var(--muted);
+  text-align: right;
+}
+
 .result-card,
 .derived-panel {
   padding: 22px;
@@ -366,6 +529,19 @@ button {
   display: none;
 }
 
+.site-footer {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto 30px;
+  padding: 0 4px 18px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.92rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
 @keyframes floatIn {
   from {
     opacity: 0;
@@ -382,7 +558,8 @@ button {
   .results-grid,
   .info-grid,
   .hero-metrics,
-  .form-grid {
+  .form-grid,
+  .matrix-layout {
     grid-template-columns: 1fr;
   }
 
@@ -407,5 +584,25 @@ button {
 
   .hero-copy h1 {
     font-size: 2.35rem;
+  }
+
+  .matrix-grid {
+    grid-template-columns: 86px repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .matrix-cell,
+  .matrix-axis {
+    padding: 12px;
+    min-height: 76px;
+  }
+
+  .matrix-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .matrix-summary p {
+    text-align: left;
   }
 }

@@ -1,4 +1,14 @@
 const LABELS = ['NAI', 'VAI', 'OAI'];
+const CONFUSION_MATRIX = [
+  [16255, 1443, 8],
+  [4596, 2085, 28],
+  [311, 321, 13],
+];
+const CONFUSION_MATRIX_SUMMARY = {
+  accuracy: 0.7276,
+  macroF1: 0.4230,
+  title: 'Notebook confusion matrix',
+};
 const FIELD_ORDER = [
   'State',
   'Zip',
@@ -259,6 +269,47 @@ function renderProbabilities(container, probs) {
   }).join('');
 }
 
+function renderConfusionMatrix(container) {
+  const maxValue = Math.max(...CONFUSION_MATRIX.flat());
+  const headerRow = LABELS.map((label) => `<div class="matrix-axis header">${label}</div>`).join('');
+  const rows = CONFUSION_MATRIX.map((row, rowIndex) => {
+    const rowLabel = LABELS[rowIndex];
+    const total = row.reduce((sum, value) => sum + value, 0);
+    const cells = row.map((value, colIndex) => {
+      const intensity = value / maxValue;
+      const opacity = 0.12 + intensity * 0.62;
+      const isDiagonal = rowIndex === colIndex;
+      return `
+        <div
+          class="matrix-cell ${isDiagonal ? 'diagonal' : 'off-diagonal'}"
+          style="background: linear-gradient(135deg, rgba(118, 228, 194, ${opacity}), rgba(138, 180, 255, ${opacity * 0.82}));"
+          title="Actual ${rowLabel}, Predicted ${LABELS[colIndex]}: ${value}"
+        >
+          <span class="count">${value.toLocaleString()}</span>
+          <span class="share">${((value / total) * 100).toFixed(1)}% of actual ${rowLabel}</span>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="matrix-chip">Actual ${rowLabel}</div>
+      ${cells}
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="matrix-grid">
+      <div class="matrix-axis corner">Actual vs Predicted</div>
+      ${headerRow}
+      ${rows}
+    </div>
+    <div class="matrix-summary">
+      <strong>${CONFUSION_MATRIX_SUMMARY.title}</strong>
+      <p>Accuracy: ${(CONFUSION_MATRIX_SUMMARY.accuracy * 100).toFixed(1)}% | Macro-F1: ${CONFUSION_MATRIX_SUMMARY.macroF1.toFixed(3)}</p>
+    </div>
+  `;
+}
+
 function renderDerived(container, row) {
   container.innerHTML = `
     <strong>Derived inputs used by the model</strong><br />
@@ -282,6 +333,7 @@ function initApp(exportData) {
   const probabilityList = document.getElementById('probabilityList');
   const derivedPanel = document.getElementById('derivedPanel');
   const heroMetrics = document.getElementById('heroMetrics');
+  const confusionMatrix = document.getElementById('confusionMatrix');
 
   const stateSelect = document.getElementById('stateSelect');
   const countrySelect = document.getElementById('countrySelect');
@@ -321,6 +373,8 @@ function initApp(exportData) {
       <small>Exact fitted ensemble in browser</small>
     </div>
   `;
+
+  renderConfusionMatrix(confusionMatrix);
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
