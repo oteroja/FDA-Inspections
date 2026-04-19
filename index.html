@@ -18,7 +18,8 @@
           <p class="eyebrow">Are you worried about your FDA inspection risk?</p>
           <h1>Estimate whether an FDA case is likely NAI, VAI, or OAI.</h1>
           <p class="lede">
-            This is a GitHub Pages interface built around a LightGBM model trained on official FDA inspection data from 2009 to 2026. It provides a quick way to get a risk profile for a case based on minimal input details, with all inference done in the browser.
+            This is a GitHub Pages interface built around a LightGBM model trained on official FDA inspection data from 2009 to 2026. 
+            Enter the case information, and the app will show you the predicted probabilities for each inspection classification.
           </p>
           <div class="hero-metrics" id="heroMetrics">
             <div class="metric-card">
@@ -44,9 +45,11 @@
             <li>You enter the basic case details.</li>
             <li>The app infers administration, region, and feature-engineered variables.</li>
             <li>The fitted LightGBM trees score the case in the browser.</li>
+            <li>The app returns the predicted probabilities for each inspection classification.</li>
           </ol>
           <p class="note">
             If you do not know historical counts, leave them at zero. That gives a conservative default profile.
+            NAI = No Action Indicated, VAI = Voluntary Action Indicated, OAI = Official Action Indicated.
           </p>
         </aside>
       </header>
