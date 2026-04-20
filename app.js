@@ -375,10 +375,12 @@ function renderDistributionChart(container) {
               <div class="distribution-bar" role="img" aria-label="${item.year}: NAI ${item.nai} percent, VAI ${item.vai} percent, OAI ${item.oai} percent">
                 ${bars}
               </div>
-              <div class="distribution-year">${item.year}</div>
             </div>
           `;
         }).join('')}
+      </div>
+      <div class="distribution-year-row" aria-hidden="true">
+        ${DISTRIBUTION_BY_YEAR.map((item) => `<div class="distribution-year">${item.year}</div>`).join('')}
       </div>
       <div class="distribution-legend" aria-label="Distribution legend">
         <span class="distribution-legend-item"><i class="swatch nai"></i> NAI</span>
