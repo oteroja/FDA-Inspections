@@ -248,7 +248,7 @@ function setOptions(select, values, placeholder = null) {
 function renderBadges(container, probs) {
   const classes = ['nai', 'vai', 'oai'];
   container.innerHTML = LABELS.map((label, index) => {
-    const pct = (probs[index] * 100).toFixed(1);
+    const pct = (probs[index] * 100).toFixed(2);
     return `<span class="badge ${classes[index]}">${label}: ${pct}%</span>`;
   }).join('');
 }
@@ -260,7 +260,7 @@ function renderProbabilities(container, probs) {
       <div class="probability-item">
         <div class="probability-row">
           <strong>${label}</strong>
-          <span>${pct.toFixed(1)}%</span>
+          <span>${pct.toFixed(2)}%</span>
         </div>
         <div class="bar"><span style="width: ${pct}%"></span></div>
         <small>Probability of ${label} for this case</small>
@@ -286,7 +286,7 @@ function renderConfusionMatrix(container) {
           title="Actual ${rowLabel}, Predicted ${LABELS[colIndex]}: ${value}"
         >
           <span class="count">${value.toLocaleString()}</span>
-          <span class="share">${((value / total) * 100).toFixed(1)}% of actual ${rowLabel}</span>
+          <span class="share">${((value / total) * 100).toFixed(2)}% of actual ${rowLabel}</span>
         </div>
       `;
     }).join('');
@@ -305,7 +305,7 @@ function renderConfusionMatrix(container) {
     </div>
     <div class="matrix-summary">
       <strong>${CONFUSION_MATRIX_SUMMARY.title}</strong>
-      <p>Accuracy: ${(CONFUSION_MATRIX_SUMMARY.accuracy * 100).toFixed(1)}% | Macro-F1: ${CONFUSION_MATRIX_SUMMARY.macroF1.toFixed(3)}</p>
+      <p>Accuracy: ${(CONFUSION_MATRIX_SUMMARY.accuracy * 100).toFixed(2)}% | Macro-F1: ${(CONFUSION_MATRIX_SUMMARY.macroF1 * 100).toFixed(2)}%</p>
     </div>
   `;
 }
@@ -359,12 +359,12 @@ function initApp(exportData) {
   heroMetrics.innerHTML = `
     <div class="metric-card">
       <span class="metric-label">Eval macro-F1</span>
-      <strong>${Number(metrics.eval_macro_f1 || 0).toFixed(3)}</strong>
+      <strong>${(Number(metrics.eval_macro_f1 || 0) * 100).toFixed(2)}%</strong>
       <small>Test score</small>
     </div>
     <div class="metric-card">
       <span class="metric-label">Eval accuracy</span>
-      <strong>${Number(metrics.eval_accuracy || 0).toFixed(3)}</strong>
+      <strong>${(Number(metrics.eval_accuracy || 0) * 100).toFixed(2)}%</strong>
       <small>Test accuracy</small>
     </div>
     <div class="metric-card">
