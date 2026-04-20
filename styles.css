@@ -510,6 +510,13 @@ button {
   align-items: stretch;
 }
 
+.distribution-chart-scroll {
+  display: grid;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
 .distribution-chart-scale {
   display: grid;
   align-content: space-between;
@@ -530,9 +537,9 @@ button {
   grid-auto-flow: column;
   grid-auto-columns: minmax(48px, 1fr);
   gap: 10px;
-  padding: 12px 16px 36px;
+  min-width: 100%;
+  padding: 12px 16px 0;
   border-radius: 18px;
-  overflow-x: auto;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
     repeating-linear-gradient(
@@ -555,7 +562,8 @@ button {
   grid-auto-flow: column;
   grid-auto-columns: minmax(48px, 1fr);
   gap: 10px;
-  padding: 10px 16px 0;
+  min-width: 100%;
+  padding: 0 16px;
 }
 
 .distribution-bar {
@@ -606,7 +614,7 @@ button {
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  padding: 0 4px;
+  line-height: 1.2;
 }
 
 .distribution-legend {
@@ -614,8 +622,13 @@ button {
   grid-template-columns: repeat(3, max-content);
   justify-content: center;
   align-items: center;
-  column-gap: 14px;
+  column-gap: clamp(14px, 2vw, 24px);
+  width: 100%;
+  padding: 2px 0 0;
   margin-top: 14px;
+  grid-column: 1 / -1;
+  justify-self: center;
+  max-width: 100%;
 }
 
 .distribution-legend-item {
@@ -828,13 +841,13 @@ button {
   }
 
   .distribution-chart-body {
-    padding-bottom: 28px;
+    padding-bottom: 0;
   }
 
   .distribution-year-row {
     grid-auto-columns: minmax(48px, 1fr);
     gap: 8px;
-    padding: 10px 2px 0;
+    padding: 0 2px;
   }
 
   .distribution-bar {
