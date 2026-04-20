@@ -602,20 +602,19 @@ button {
 }
 
 .distribution-legend {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
   justify-content: center;
-  gap: 14px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
+  align-items: center;
+  column-gap: 14px;
   margin-top: 14px;
 }
 
 .distribution-legend-item {
   display: inline-flex;
-  flex: 0 0 auto;
   align-items: center;
   gap: 10px;
+  white-space: nowrap;
   color: var(--muted);
   font-size: 0.92rem;
 }
