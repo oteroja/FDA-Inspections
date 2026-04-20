@@ -346,41 +346,43 @@ function renderDistributionChart(container) {
         <span>25%</span>
         <span>0%</span>
       </div>
-      <div class="distribution-chart-body">
-        ${DISTRIBUTION_BY_YEAR.map((item) => {
-          const segments = [
-            { key: 'nai', value: item.nai },
-            { key: 'vai', value: item.vai },
-            { key: 'oai', value: item.oai },
-          ];
+      <div class="distribution-chart-scroll">
+        <div class="distribution-chart-body">
+          ${DISTRIBUTION_BY_YEAR.map((item) => {
+            const segments = [
+              { key: 'nai', value: item.nai },
+              { key: 'vai', value: item.vai },
+              { key: 'oai', value: item.oai },
+            ];
 
-          let offset = 0;
-          const bars = segments.map((segment) => {
-            const segmentTop = offset;
-            offset += segment.value;
-            const label = segment.value >= 7 ? `${segment.value.toFixed(0)}%` : '';
+            let offset = 0;
+            const bars = segments.map((segment) => {
+              const segmentTop = offset;
+              offset += segment.value;
+              const label = segment.value >= 7 ? `${segment.value.toFixed(0)}%` : '';
+              return `
+                <span
+                  class="distribution-segment distribution-segment-${segment.key}"
+                  style="--share: ${segment.value}; --offset: ${segmentTop}; --segment-color: ${palette[segment.key]};"
+                  title="${item.year} ${segment.key.toUpperCase()}: ${segment.value.toFixed(0)}%"
+                >
+                  <span class="distribution-segment-label">${label}</span>
+                </span>
+              `;
+            }).join('');
+
             return `
-              <span
-                class="distribution-segment distribution-segment-${segment.key}"
-                style="--share: ${segment.value}; --offset: ${segmentTop}; --segment-color: ${palette[segment.key]};"
-                title="${item.year} ${segment.key.toUpperCase()}: ${segment.value.toFixed(0)}%"
-              >
-                <span class="distribution-segment-label">${label}</span>
-              </span>
-            `;
-          }).join('');
-
-          return `
-            <div class="distribution-column">
-              <div class="distribution-bar" role="img" aria-label="${item.year}: NAI ${item.nai} percent, VAI ${item.vai} percent, OAI ${item.oai} percent">
-                ${bars}
+              <div class="distribution-column">
+                <div class="distribution-bar" role="img" aria-label="${item.year}: NAI ${item.nai} percent, VAI ${item.vai} percent, OAI ${item.oai} percent">
+                  ${bars}
+                </div>
               </div>
-            </div>
-          `;
-        }).join('')}
-      </div>
-      <div class="distribution-year-row" aria-hidden="true">
-        ${DISTRIBUTION_BY_YEAR.map((item) => `<div class="distribution-year">${item.year}</div>`).join('')}
+            `;
+          }).join('')}
+        </div>
+        <div class="distribution-year-row" aria-hidden="true">
+          ${DISTRIBUTION_BY_YEAR.map((item) => `<div class="distribution-year">${item.year}</div>`).join('')}
+        </div>
       </div>
       <div class="distribution-legend" aria-label="Distribution legend">
         <span class="distribution-legend-item"><i class="swatch nai"></i> NAI</span>
