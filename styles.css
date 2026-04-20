@@ -86,7 +86,6 @@ body::before {
 
 .hero-copy h1 {
   font-size: clamp(2.5rem, 5vw, 4.7rem);
-  max-width: 11ch;
   margin-top: 8px;
 }
 
