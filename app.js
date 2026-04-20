@@ -7,7 +7,7 @@ const CONFUSION_MATRIX = [
 const CONFUSION_MATRIX_SUMMARY = {
   accuracy: 0.7276,
   macroF1: 0.4230,
-  title: 'Notebook confusion matrix',
+  title: 'Confusion matrix',
 };
 const FIELD_ORDER = [
   'State',
@@ -360,12 +360,12 @@ function initApp(exportData) {
     <div class="metric-card">
       <span class="metric-label">Eval macro-F1</span>
       <strong>${Number(metrics.eval_macro_f1 || 0).toFixed(3)}</strong>
-      <small>Notebook validation score</small>
+      <small>Test score</small>
     </div>
     <div class="metric-card">
       <span class="metric-label">Eval accuracy</span>
       <strong>${Number(metrics.eval_accuracy || 0).toFixed(3)}</strong>
-      <small>Notebook validation accuracy</small>
+      <small>Test accuracy</small>
     </div>
     <div class="metric-card">
       <span class="metric-label">Trees</span>

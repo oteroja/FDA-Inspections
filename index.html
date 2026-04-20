@@ -19,13 +19,13 @@
           <h1>Estimate the likely outcome of an FDA inspection</h1>
           <p class="lede">
             This is a GitHub Pages interface built around a LightGBM model trained on official FDA inspection data from 2009 to 2026.
-            Enter the case information, and the app will show the predicted probabilities for each inspection classification alongside the notebook's evaluation matrix.
+            Enter the case information, and the app will show the predicted probabilities for each inspection classification alongside the evaluation matrix.
           </p>
           <div class="hero-metrics" id="heroMetrics">
             <div class="metric-card">
               <span class="metric-label">Model</span>
               <strong>LightGBM multiclass</strong>
-              <small>F1-optimized notebook model</small>
+              <small>F1-optimized FDA inspection model</small>
             </div>
             <div class="metric-card">
               <span class="metric-label">Inputs</span>
@@ -45,7 +45,7 @@
             <li>You enter the basic case details.</li>
             <li>The app infers administration, region, and feature-engineered variables.</li>
             <li>The fitted LightGBM trees score the case in the browser.</li>
-            <li>The app returns the predicted probabilities for each inspection classification and the saved notebook confusion matrix.</li>
+            <li>The app returns the predicted probabilities for each inspection classification and the saved confusion matrix.</li>
           </ol>
           <p class="note">
             If you do not know historical counts, leave them at zero. That gives a conservative default profile.
@@ -64,21 +64,22 @@
             <article class="info-card">
               <h3>Dataset</h3>
               <p>
-                The model was trained on the FDA inspection dataset used in the notebook. The target is the
-                inspection classification mapped into three classes: NAI, VAI, and OAI.
+                The model was trained on the FDA inspection dataset published by the FDA.
+                <a href="https://datadashboard.fda.gov/oii/cd/inspections.htm" target="_blank" rel="noreferrer">Open the inspection dataset</a>.
+                The target is the inspection classification mapped into three classes: NAI, VAI, and OAI.
               </p>
             </article>
             <article class="info-card">
               <h3>Feature engineering</h3>
               <p>
-                The notebook converts country and state into regions, maps product type frequencies, derives
+                The model converts country and state into regions, maps product type frequencies, derives
                 presidential administration features, and adds facility history counts.
               </p>
             </article>
             <article class="info-card">
               <h3>Modeling approach</h3>
               <p>
-                The page uses the notebook's first LightGBM model, the one optimized for macro F1, and keeps the
+                The page uses the LightGBM model optimized for macro F1, and keeps the
                 exact fitted tree ensemble for inference.
               </p>
             </article>
@@ -86,7 +87,7 @@
               <h3>Outcome labels</h3>
               <p>
                 NAI means No Action Indicated, VAI means Voluntary Action Indicated, and OAI means Official Action Indicated.
-                The matrix below shows how the notebook's saved evaluation image classified those outcomes.
+                The matrix below shows how the saved evaluation image classified those outcomes.
               </p>
             </article>
           </div>
@@ -94,10 +95,10 @@
 
         <section class="section matrix-section" id="evaluation">
           <div class="section-heading">
-            <p class="eyebrow">Notebook evaluation</p>
-            <h2>Confusion matrix from the notebook</h2>
+            <p class="eyebrow">Evaluation</p>
+            <h2>Confusion matrix from the inspection model</h2>
             <p class="lede matrix-lede">
-              Saved from the FDA Models Notebook evaluation figure. Rows are actual outcomes and columns are predicted outcomes.
+              Saved evaluation figure from the inspection model. Rows are actual outcomes and columns are predicted outcomes.
             </p>
           </div>
 
@@ -123,7 +124,7 @@
                 </div>
               </div>
               <p class="matrix-note">
-                The image stored in the repository corresponds to the notebook's evaluation heatmap and is shown here in the same style language as the rest of the interface.
+                The image stored in the repository corresponds to the evaluation heatmap and is shown here in the same style language as the rest of the interface.
               </p>
             </article>
           </div>
