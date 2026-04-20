@@ -18,7 +18,7 @@
           <p class="eyebrow">Are you worried about your FDA inspection risk?</p>
           <h1>Estimate the likely outcome of an FDA inspection</h1>
           <p class="lede">
-            This is a GitHub Pages interface built around a LightGBM model trained on official FDA inspection data from 2009 to 2026.
+            This is an app built around a LightGBM model trained on official FDA inspection data from 2009 to 2024, and tested with 2025 and 2026 data.
             Enter the case information, and the app will show the predicted percentages for each inspection classification alongside the evaluation matrix.
           </p>
           <div class="hero-metrics" id="heroMetrics">
@@ -45,11 +45,10 @@
             <li>You enter the basic case details.</li>
             <li>The app infers administration, region, and feature-engineered variables.</li>
             <li>The fitted LightGBM trees score the case in the browser.</li>
-            <li>The app returns the predicted percentages for each inspection classification and the saved confusion matrix.</li>
+            <li>The app returns the predicted percentages for each inspection classification</li>
           </ol>
           <p class="note">
             If you do not know historical counts, leave them at zero. That gives a conservative default profile.
-            NAI = No Action Indicated, VAI = Voluntary Action Indicated, OAI = Official Action Indicated.
           </p>
         </aside>
       </header>
@@ -73,21 +72,21 @@
               <h3>Feature engineering</h3>
               <p>
                 The model converts country and state into regions, maps product type frequencies, derives
-                presidential administration features, and adds facility history counts.
+                presidential administration features, and adds inspection history counts.
               </p>
             </article>
             <article class="info-card">
               <h3>Modeling approach</h3>
               <p>
-                The page uses the LightGBM model optimized for macro F1, and keeps the
+                The app uses the LightGBM model optimized for macro F1, and keeps the
                 exact fitted tree ensemble for inference.
               </p>
             </article>
             <article class="info-card">
               <h3>Outcome labels</h3>
               <p>
-                NAI means No Action Indicated, VAI means Voluntary Action Indicated, and OAI means Official Action Indicated.
-                The matrix below shows how the saved evaluation image classified those outcomes.
+                NAI = No Action Indicated, VAI = Voluntary Action Indicated, and OAI = Official Action Indicated.
+                The matrix below shows how the model performs in predicting these classes on the test set, which includes 2025 and 2026 data.
               </p>
             </article>
           </div>
@@ -124,7 +123,7 @@
                 </div>
               </div>
               <p class="matrix-note">
-                The image stored in the repository corresponds to the evaluation heatmap and is shown here in the same style language as the rest of the interface.
+                Each row represents the actual class, while each column represents the predicted class. The diagonal cells show correct predictions.
               </p>
             </article>
           </div>
