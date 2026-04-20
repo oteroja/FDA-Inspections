@@ -292,7 +292,7 @@ function renderConfusionMatrix(container) {
     }).join('');
 
     return `
-      <div class="matrix-chip">Actual ${rowLabel}</div>
+      <div class="matrix-axis header">${rowLabel}</div>
       ${cells}
     `;
   }).join('');
