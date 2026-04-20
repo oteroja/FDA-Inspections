@@ -5,8 +5,8 @@ const CONFUSION_MATRIX = [
   [311, 321, 13],
 ];
 const CONFUSION_MATRIX_SUMMARY = {
-  accuracy: 0.7276,
-  macroF1: 0.4230,
+  accuracy: '73.24%',
+  macroF1: '42.29%',
   title: 'Confusion matrix',
 };
 const FIELD_ORDER = [
