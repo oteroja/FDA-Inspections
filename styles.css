@@ -405,6 +405,22 @@ button {
   background: rgba(255, 255, 255, 0.03);
 }
 
+.definition-list .label-item {
+  border-left-width: 4px;
+}
+
+.definition-list .label-item-nai {
+  border-left-color: #b2ffd7;
+}
+
+.definition-list .label-item-vai {
+  border-left-color: #f7d28d;
+}
+
+.definition-list .label-item-oai {
+  border-left-color: #ff9bb0;
+}
+
 .definition-list strong {
   display: block;
   color: var(--text);
@@ -413,15 +429,15 @@ button {
 }
 
 .definition-list .label-nai {
-  color: #b2ffd7;
+  color: #b2ffd7 !important;
 }
 
 .definition-list .label-vai {
-  color: #f7d28d;
+  color: #f7d28d !important;
 }
 
 .definition-list .label-oai {
-  color: #ff9bb0;
+  color: #ff9bb0 !important;
 }
 
 .definition-list p,
