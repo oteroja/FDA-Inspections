@@ -358,12 +358,12 @@ function initApp(exportData) {
   const metrics = exportData.metrics || {};
   heroMetrics.innerHTML = `
     <div class="metric-card">
-      <span class="metric-label">Eval macro-F1</span>
+      <span class="metric-label">Test macro-F1</span>
       <strong>${(Number(metrics.eval_macro_f1 || 0) * 100).toFixed(2)}%</strong>
       <small>Test score</small>
     </div>
     <div class="metric-card">
-      <span class="metric-label">Eval accuracy</span>
+      <span class="metric-label">Test accuracy</span>
       <strong>${(Number(metrics.eval_accuracy || 0) * 100).toFixed(2)}%</strong>
       <small>Test accuracy</small>
     </div>
