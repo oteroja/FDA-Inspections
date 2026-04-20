@@ -9,6 +9,26 @@ const CONFUSION_MATRIX_SUMMARY = {
   macroF1: 0.4229,
   title: 'Confusion matrix',
 };
+const DISTRIBUTION_BY_YEAR = [
+  { year: 2009, nai: 62, vai: 34, oai: 4 },
+  { year: 2010, nai: 61, vai: 35, oai: 4 },
+  { year: 2011, nai: 61, vai: 34, oai: 5 },
+  { year: 2012, nai: 63, vai: 32, oai: 5 },
+  { year: 2013, nai: 64, vai: 31, oai: 5 },
+  { year: 2014, nai: 62, vai: 33, oai: 5 },
+  { year: 2015, nai: 63, vai: 33, oai: 4 },
+  { year: 2016, nai: 65, vai: 31, oai: 4 },
+  { year: 2017, nai: 66, vai: 30, oai: 4 },
+  { year: 2018, nai: 66, vai: 31, oai: 3 },
+  { year: 2019, nai: 65, vai: 32, oai: 3 },
+  { year: 2020, nai: 62, vai: 35, oai: 3 },
+  { year: 2021, nai: 61, vai: 34, oai: 5 },
+  { year: 2022, nai: 68, vai: 29, oai: 3 },
+  { year: 2023, nai: 68, vai: 29, oai: 3 },
+  { year: 2024, nai: 68, vai: 28, oai: 4 },
+  { year: 2025, nai: 69, vai: 28, oai: 3 },
+  { year: 2026, nai: 75, vai: 23, oai: 1 },
+];
 const FIELD_ORDER = [
   'State',
   'Zip',
@@ -310,6 +330,65 @@ function renderConfusionMatrix(container) {
   `;
 }
 
+function renderDistributionChart(container) {
+  const palette = {
+    nai: '#b2ffd7',
+    vai: '#f7d28d',
+    oai: '#ff9bb0',
+  };
+
+  container.innerHTML = `
+    <div class="distribution-chart-frame">
+      <div class="distribution-chart-scale" aria-hidden="true">
+        <span>100%</span>
+        <span>75%</span>
+        <span>50%</span>
+        <span>25%</span>
+        <span>0%</span>
+      </div>
+      <div class="distribution-chart-body">
+        ${DISTRIBUTION_BY_YEAR.map((item) => {
+          const segments = [
+            { key: 'nai', value: item.nai },
+            { key: 'vai', value: item.vai },
+            { key: 'oai', value: item.oai },
+          ];
+
+          let offset = 0;
+          const bars = segments.map((segment) => {
+            const segmentTop = offset;
+            offset += segment.value;
+            const label = segment.value >= 7 ? `${segment.value.toFixed(0)}%` : '';
+            return `
+              <span
+                class="distribution-segment distribution-segment-${segment.key}"
+                style="--share: ${segment.value}; --offset: ${segmentTop}; --segment-color: ${palette[segment.key]};"
+                title="${item.year} ${segment.key.toUpperCase()}: ${segment.value.toFixed(0)}%"
+              >
+                <span class="distribution-segment-label">${label}</span>
+              </span>
+            `;
+          }).join('');
+
+          return `
+            <div class="distribution-column">
+              <div class="distribution-bar" role="img" aria-label="${item.year}: NAI ${item.nai} percent, VAI ${item.vai} percent, OAI ${item.oai} percent">
+                ${bars}
+              </div>
+              <div class="distribution-year">${item.year}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+      <div class="distribution-legend" aria-label="Distribution legend">
+        <span class="distribution-legend-item"><i class="swatch nai"></i> NAI</span>
+        <span class="distribution-legend-item"><i class="swatch vai"></i> VAI</span>
+        <span class="distribution-legend-item"><i class="swatch oai"></i> OAI</span>
+      </div>
+    </div>
+  `;
+}
+
 function renderDerived(container, row) {
   container.innerHTML = `
     <strong>Derived inputs used by the model</strong><br />
@@ -334,6 +413,7 @@ function initApp(exportData) {
   const derivedPanel = document.getElementById('derivedPanel');
   const heroMetrics = document.getElementById('heroMetrics');
   const confusionMatrix = document.getElementById('confusionMatrix');
+  const distributionChart = document.getElementById('distributionChart');
 
   const stateSelect = document.getElementById('stateSelect');
   const countrySelect = document.getElementById('countrySelect');
@@ -375,6 +455,9 @@ function initApp(exportData) {
   `;
 
   renderConfusionMatrix(confusionMatrix);
+  if (distributionChart) {
+    renderDistributionChart(distributionChart);
+  }
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
