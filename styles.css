@@ -412,6 +412,18 @@ button {
   font-size: 1rem;
 }
 
+.definition-list .label-nai {
+  color: #b2ffd7;
+}
+
+.definition-list .label-vai {
+  color: #f7d28d;
+}
+
+.definition-list .label-oai {
+  color: #ff9bb0;
+}
+
 .definition-list p,
 .matrix-note {
   margin: 0;
