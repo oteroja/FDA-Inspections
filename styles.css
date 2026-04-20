@@ -472,6 +472,44 @@ button {
   text-align: right;
 }
 
+.distribution-card {
+  margin-top: 14px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at top left, rgba(118, 228, 194, 0.1), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(138, 180, 255, 0.1), transparent 30%),
+    var(--panel);
+  display: grid;
+  gap: 18px;
+}
+
+.distribution-copy h3 {
+  margin: 6px 0 10px;
+  font-size: clamp(1.3rem, 2.3vw, 1.8rem);
+}
+
+.distribution-copy p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.distribution-figure {
+  padding: 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.distribution-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
 .result-card,
 .derived-panel {
   padding: 22px;
@@ -631,5 +669,9 @@ button {
 
   .matrix-summary p {
     text-align: left;
+  }
+
+  .distribution-card {
+    padding: 18px;
   }
 }
