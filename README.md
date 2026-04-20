@@ -2,6 +2,8 @@
 
 Are you worried about the next FDA inspection? This static Github Pages app estimates the likely outcome of an FDA inspection based on very simple information you can provide.
 
+Check it out here: https://oteroja.github.io/FDA-Inspections/
+
 ## What it does
 
 - Uses an LightGBM model optimized for macro F1 which was trained with data up to 2024 and tested with 2025 and 2026 data.
