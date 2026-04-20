@@ -1,6 +1,6 @@
 # FDA Inspection Risk Profile
 
-Are you worried about the next FDA inspection? Thus static Github Pages app estimates the likely outcome of an FDA inspection based on very simple information you can provide.
+Are you worried about the next FDA inspection? This static Github Pages app estimates the likely outcome of an FDA inspection based on very simple information you can provide.
 
 ## What it does
 
