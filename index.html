@@ -19,7 +19,7 @@
           <h1>Estimate the likely outcome of an FDA inspection</h1>
           <p class="lede">
             This is a GitHub Pages interface built around a LightGBM model trained on official FDA inspection data from 2009 to 2026.
-            Enter the case information, and the app will show the predicted probabilities for each inspection classification alongside the evaluation matrix.
+            Enter the case information, and the app will show the predicted percentages for each inspection classification alongside the evaluation matrix.
           </p>
           <div class="hero-metrics" id="heroMetrics">
             <div class="metric-card">
@@ -34,7 +34,7 @@
             </div>
             <div class="metric-card">
               <span class="metric-label">Output</span>
-              <strong>Probabilities</strong>
+              <strong>Percentages</strong>
               <small>NAI, VAI, and OAI risk profile</small>
             </div>
           </div>
@@ -45,7 +45,7 @@
             <li>You enter the basic case details.</li>
             <li>The app infers administration, region, and feature-engineered variables.</li>
             <li>The fitted LightGBM trees score the case in the browser.</li>
-            <li>The app returns the predicted probabilities for each inspection classification and the saved confusion matrix.</li>
+            <li>The app returns the predicted percentages for each inspection classification and the saved confusion matrix.</li>
           </ol>
           <p class="note">
             If you do not know historical counts, leave them at zero. That gives a conservative default profile.
@@ -202,7 +202,7 @@
             </article>
 
             <article class="result-card">
-              <span class="metric-label">Probabilities</span>
+              <span class="metric-label">Percentages</span>
               <div class="probability-list" id="probabilityList"></div>
             </article>
           </div>
