@@ -15,7 +15,7 @@ Check it out here: https://oteroja.github.io/FDA-Inspections/
 
 - Data source: the FDA inspection dataset can be found https://datadashboard.fda.gov/oii/cd/inspections.htm.
 - Target classes: `NAI`, `VAI`, `OAI`.
-- Feature engineering: administration mapping, region mapping, product frequency ranks, and inspection history counts frozen through fiscal year 2023.
+- Feature engineering: administration mapping, region mapping, product frequency ranks, and inspection history counts frozen through fiscal year 2024.
 - The exported browser bundle is stored in `site/assets/fda_model_export.json`.
 
 ## Local preview
