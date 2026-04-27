@@ -47,6 +47,7 @@ const FIELD_ORDER = [
   'Past_NAI',
   'Past_VAI',
   'Past_OAI',
+  'Past_Posted_Citations',
 ];
 
 const stateMap = {
@@ -151,6 +152,7 @@ function buildFeatureRow(form, exportData) {
   const pastNai = Number(form.pastNAI.value || 0);
   const pastVai = Number(form.pastVAI.value || 0);
   const pastOai = Number(form.pastOAI.value || 0);
+  const pastPostedCitations = Number(form.pastPostedCitations.value || 0);
 
   const presidentialAdministration = mapAdministration(fiscalYear);
   const presidentParty = presidentialAdministration === 'Trump' ? 0 : 1;
@@ -178,6 +180,7 @@ function buildFeatureRow(form, exportData) {
     Past_NAI: pastNai,
     Past_VAI: pastVai,
     Past_OAI: pastOai,
+    Past_Posted_Citations: pastPostedCitations,
   };
 }
 
@@ -289,7 +292,13 @@ function renderProbabilities(container, probs) {
   }).join('');
 }
 
-function renderConfusionMatrix(container) {
+function renderConfusionMatrix(container, metrics = null) {
+  const summary = {
+    title: CONFUSION_MATRIX_SUMMARY.title,
+    accuracy: Number(metrics?.eval_accuracy ?? CONFUSION_MATRIX_SUMMARY.accuracy),
+    macroF1: Number(metrics?.eval_macro_f1 ?? CONFUSION_MATRIX_SUMMARY.macroF1),
+  };
+
   const maxValue = Math.max(...CONFUSION_MATRIX.flat());
   const headerRow = LABELS.map((label) => `<div class="matrix-axis header">${label}</div>`).join('');
   const rows = CONFUSION_MATRIX.map((row, rowIndex) => {
@@ -324,8 +333,8 @@ function renderConfusionMatrix(container) {
       ${rows}
     </div>
     <div class="matrix-summary">
-      <strong>${CONFUSION_MATRIX_SUMMARY.title}</strong>
-      <p>Accuracy: ${(CONFUSION_MATRIX_SUMMARY.accuracy * 100).toFixed(2)}% | Macro-F1: ${(CONFUSION_MATRIX_SUMMARY.macroF1 * 100).toFixed(2)}%</p>
+      <strong>${summary.title}</strong>
+      <p>Accuracy: ${(summary.accuracy * 100).toFixed(2)}% | Macro-F1: ${(summary.macroF1 * 100).toFixed(2)}%</p>
     </div>
   `;
 }
@@ -402,7 +411,8 @@ function renderDerived(container, row) {
     Region: ${row.Region}<br />
     US region: ${row.US_Region}<br />
     Product warning frequency rank: ${row.Product_Type_Warning_Letter_Frequency}<br />
-    Product injunction frequency rank: ${row.Product_Type_Injunction_Frequency}
+    Product injunction frequency rank: ${row.Product_Type_Injunction_Frequency}<br />
+    Past posted citations: ${row.Past_Posted_Citations}
   `;
 }
 
@@ -458,7 +468,7 @@ function initApp(exportData) {
     </div>
   `;
 
-  renderConfusionMatrix(confusionMatrix);
+  renderConfusionMatrix(confusionMatrix, exportData.metrics);
   if (distributionChart) {
     renderDistributionChart(distributionChart);
   }
