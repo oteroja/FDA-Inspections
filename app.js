@@ -1,12 +1,12 @@
 const LABELS = ['NAI', 'VAI', 'OAI'];
 const CONFUSION_MATRIX = [
-  [16255, 1443, 8],
-  [4596, 2085, 28],
-  [311, 321, 13],
+  [15746, 1950, 10],
+  [4299, 2380, 30],
+  [297, 337, 11],
 ];
 const CONFUSION_MATRIX_SUMMARY = {
-  accuracy: 0.7324,
-  macroF1: 0.4229,
+  accuracy: 0.7237,
+  macroF1: 0.4259,
   title: 'Confusion matrix',
 };
 const DISTRIBUTION_BY_YEAR = [
